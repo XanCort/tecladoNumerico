@@ -14,17 +14,6 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
-    private class ReceptorBotton implements View.OnClickListener {
-
-        @Override
-        public void onClick(View view) {
-            Toast.makeText(MainActivity.this, "Has pulsado el botón " + ((Button) view).getText() + "", Toast.LENGTH_LONG).show();
-
-        }
-
-    }
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +23,12 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 1; i <= 17; i++) {
             int idAsignar = getResources().getIdentifier("boton" + i, "id", getPackageName());
             Button boton = findViewById(idAsignar);
-            boton.setOnClickListener(new ReceptorBotton());
+            boton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(MainActivity.this, "Has pulsado el botón " + ((Button) view).getText() + "", Toast.LENGTH_LONG).show();
+                }
+            });
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
