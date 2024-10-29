@@ -12,7 +12,18 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity {
+
+    private class ReceptorBotton implements View.OnClickListener {
+
+        @Override
+        public void onClick(View view) {
+            Toast.makeText(MainActivity.this, "Has pulsado el botón " + ((Button) view).getText() + "", Toast.LENGTH_LONG).show();
+
+        }
+
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,10 +31,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        for(int i=1;i<=17;i++){
-            int idAsignar = getResources().getIdentifier("boton"+i,"id",getPackageName());
+        for (int i = 1; i <= 17; i++) {
+            int idAsignar = getResources().getIdentifier("boton" + i, "id", getPackageName());
             Button boton = findViewById(idAsignar);
-            boton.setOnClickListener(this);
+            boton.setOnClickListener(new ReceptorBotton());
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -33,10 +44,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
-
-    @Override
-    public void onClick(View view) {
-        Toast.makeText(this,"Has pulsado el botón "+((Button)view).getText()+"",Toast.LENGTH_LONG).show();
-
-    }
 }
+
